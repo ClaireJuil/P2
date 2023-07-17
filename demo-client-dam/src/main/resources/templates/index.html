@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Webapp client DAM</title>
+     <script type="text/javascript" src="/script/jquery-3.5.1.min.js"></script>
+     <script type="text/javascript" src="/script/app.js"></script>
+     
+<body>
+<div body-wrapper>
+<h1> Demo client DAM</h1>
+<div class="objectif">
+<p>Application métier de démonstration .... jeton PSC => jeton d'API</p>
+</div>
+<div class="container">
+            <h3> Vous devez vous identifier avec PSC , le reply party échangera alors le token PSC contre un jeton d'API </h3>
+            <button class="psc_button" onclick="window.location.href='/secure/exchangetoken'">Go</button>
+        </div>
+</div>
+
+</body>
+</html>
