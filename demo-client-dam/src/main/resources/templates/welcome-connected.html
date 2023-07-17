@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Webapp client DAM</title>
+<meta charset="UTF-8">
+<title>Webapp client DAM</title>
 <body>
-<div body-wrapper>
-<h1> Demo client DAM</h1>
-<div class="objectif">
-<p>Application métier de démonstration .... jeton PSC => jeton d'API</p>
-</div>
-<div class="token">
-            <p> ICI TEST THYMELEAF => <span th:text="${mytest}" /> </p>
-            <h3> Token d'API obtenu pour vous par la webapp par exchange du token PSC: </h3>
-        </div>
+	<div body-wrapper>
+		<h1>Demo client DAM</h1>
+		<div class="objectif">
+			<p>Application métier de démonstration .... jeton PSC => jeton
+				d'API</p>
+		</div>
+		<div class="token">
+			<h3>Token d'API obtenu pour vous par la webapp par exchange du
+				token PSC:</h3>
+			<div class="token-header">
+				<h4>HEADER</h4>
+				<p>
+					<span th:text="${tokenHeader}" />
+				</p>
+
+			</div>
+			<div class="token-body">
+				<h4>BODY</h4>
+				<p>
+					<span th:text="${tokenBody}" />
+				</p>
+
+			</div>
+			<div class="date-friendly">
+			<p> date d'expiration: <span th:text="${#temporals.format(expDate, 'dd-MM-yyyy HH:mm:ss')}"/></p>
+			<p> date d'émission: <span th:text="${#temporals.format(iatDate, 'dd-MM-yyyy HH:mm:ss')}"/></p>
+			</div>
+		</div>
 </body>
 </html>

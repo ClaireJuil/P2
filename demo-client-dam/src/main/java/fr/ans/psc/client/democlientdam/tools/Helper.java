@@ -1,6 +1,9 @@
 package fr.ans.psc.client.democlientdam.tools;
 
 import java.io.UnsupportedEncodingException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Set;
 
@@ -105,5 +108,12 @@ public class Helper {
 	public static Token extractTokenObject(String jsonTokenExchangeResponse) throws JsonMappingException, JsonProcessingException  {
 		Triplet<String, String, String> tmp = splitAndDecodeTokenFromResponse(jsonTokenExchangeResponse);
 		return extractTokenObjectFromDecodedSplitedToken(tmp);
+	}
+	
+	public static LocalDateTime convertTimeStampToLocalDateTime (String timestampInSecond) {
+	 Instant instant = Instant.ofEpochSecond(Long.valueOf(timestampInSecond));
+	 LocalDateTime date = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Paris"));
+	 System.out.println("Helper date:" + date);
+	 return date;
 	}
 }
