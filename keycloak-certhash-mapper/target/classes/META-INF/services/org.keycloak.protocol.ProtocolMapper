@@ -1,1 +1,1 @@
-fr.ans.prosanteconnect.keycloak.provider.mapper.CustomProtocolMapper
+fr.ans.prosanteconnect.keycloak.provider.mapper.X509ThumbprintProtocolMapper
