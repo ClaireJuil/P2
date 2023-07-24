@@ -17,7 +17,7 @@ runner {
   }
 }
 
-app "cediteur/apache2" {
+app "editeur/apache2" {
   build {
    use "docker" {
       dockerfile = "${path.app}/Dockerfile"
@@ -28,7 +28,7 @@ app "cediteur/apache2" {
         tag      = var.tag
         username = var.registry_username
         password = var.registry_password
-        local    = true
+        local    = false
       }
     }
   }
