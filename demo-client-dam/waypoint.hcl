@@ -1,14 +1,16 @@
-project = "editeur/apache2"
+project = "editeur/demo-client-dam"
 
-labels = { "domaine" = "editeur"}
+labels = {
+  "domaine" = "editeur"
+}
 
 runner {
   enabled = true
   profile = "psc-pocs"
   data_source "git" {
     url = "https://github.com/ClaireJuil/P2.git"
-    path = "Apache2"
-    ignore_changes_outside_path = true
+	path = "demo-client-dam"
+	ignore_changes_outside_path = true
     ref = "main"
   }
   poll {
@@ -17,47 +19,41 @@ runner {
   }
 }
 
-app "cediteur/apache2" {
+app "editeur/demo-client-dam" {
   build {
-   use "docker" {
+    use "docker" {
       dockerfile = "${path.app}/Dockerfile"
     }
     registry {
       use "docker" {
-        image    = "${var.registry}/var.image"
-        tag      = var.tag
-        username = var.registry_username
+        image = "${var.registry}/demo-client-dam"
+        tag = gitrefpretty()
+ 	    username = var.registry_username
         password = var.registry_password
-        local    = true
+        local    = false      
       }
     }
   }
 
   deploy {
     use "nomad-jobspec" {
-      jobspec = templatefile("${path.app}/apache2.tpl", {
-        image = var.image
-        tag = var.tag
+      jobspec = templatefile("${path.app}/demo-client-dam.tpl", {
         datacenter = var.datacenter
       })
     }
   }
 }
 
-variable "image" {
-  type    = string
-  default = "apache2"
-}
-
-variable "tag" {
-  type    = string
-  default = "0.0.1"
-}
-
 variable "datacenter" {
   type = string
   default = "pocs-ans-psc"
   env = ["NOMAD_DATACENTER"]
+}
+
+variable "registry" {
+  type    = string
+  default = ""
+  env     = ["REGISTRY"]
 }
 
 variable "registry_username" {
@@ -74,8 +70,3 @@ variable "registry_password" {
   sensitive = true
 }
 
-variable "registry" {
-  type    = string
-  default = ""
-  env     = ["REGISTRY"]
-}

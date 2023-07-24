@@ -1,25 +1,17 @@
-job "rass-mongodb" {
-  namespace = "psc-dam"
+job "apache2" {
+  namespace = "editeur"
   datacenters = [
     "${datacenter}"]
   type = "service"
 
   vault {
     policies = [
-      "psc-dam-engine"]
+      "editeur"]
     change_mode = "restart"
   }
 
-  group "rass-mongodb" {
+  group "apache2" {
     count = 1
-	
-    volume "rass-mongo" {
-      type      = "csi"
-      read_only = false
-      source    = "rass-mongo"
-	  attachment_mode = "file-system"
-      access_mode     = "single-node-writer"
-    }
 
     restart {
       attempts = 3
@@ -36,31 +28,25 @@ job "rass-mongodb" {
     }
 
     network {
-      port "db" {
-        to = 27017
+      port "https" {
+        to = 443
       }
     }
 
-    task "rass-mongodb" {
+    task "apache2" {
       driver = "docker"
-      volume_mount {
-        volume      = "rass-mongo"
-        destination = "/data"
-        read_only   = false
-      }
+     
       template {
         data = <<EOH
-{{ with secret "psc-dam-engine/rass-db" }}
-MONGO_INITDB_ROOT_USERNAME = {{ .Data.data.root_user }}
-MONGO_INITDB_ROOT_PASSWORD = {{ .Data.data.root_pass }}{{ end }}
+PUBLIC_HOSTNAME={{ with secret "editeur/apache2" }}{{ .Data.data.apache_public_hostname }}{{ end }}
 EOH
-        destination = "secrets/.env"
+        destination = "local/file.env"
         change_mode = "restart"
         env = true
       }
       config {
         image = "${image}:${tag}"
-        ports = ["db"]             
+        ports = ["https"]             
       }
       resources {
         cpu = 200
@@ -68,14 +54,14 @@ EOH
       }
       service {
         name = "$\u007BNOMAD_JOB_NAME\u007D"
-        port = "db"
+        port = "https"
         check {
           name         = "alive"
           type         = "tcp"
           interval     = "30s"
           timeout      = "5s"
           failures_before_critical = 5
-          port         = "db"
+          port         = "https"
         }
       }
     }

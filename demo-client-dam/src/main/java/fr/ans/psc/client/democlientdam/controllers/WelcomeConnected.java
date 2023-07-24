@@ -17,11 +17,11 @@ import fr.ans.psc.client.democlientdam.model.Token;
 import fr.ans.psc.client.democlientdam.tools.Helper;
 
 @Controller
-public class PSCToken {
+public class WelcomeConnected {
 
-	@GetMapping("/psc/tokenpsc")
+	@GetMapping("/secure")
 	public String getApiToken(Model model, HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
-		System.out.println("Demande de page d'accueil utilisateur prosanté connecté");		
+		System.out.println("Demande de page d'accueil d'iun utilisateur connecté");		
 		
 		Enumeration<String> headers = request.getAttributeNames();
 		String autho = request.getHeader("Authorization");
@@ -36,6 +36,6 @@ public class PSCToken {
 		model.addAttribute("expDate",Helper.convertTimeStampToLocalDateTime(bodyToken.getExpirationDate()));
 		model.addAttribute("iatDate",Helper.convertTimeStampToLocalDateTime(bodyToken.getIssuedAt()));
 //		Timestamp exp = 
-		return "welcome-psc";
+		return "welcome-connected";
 	}
 }
