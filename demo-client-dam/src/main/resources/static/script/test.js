@@ -11,12 +11,17 @@ $(document).ready(function() {
                 //https://www.cssscript.com/minimal-json-data-formatter-jsonviewer/#google_vignette
                 let jsonViewerHeader = new JSONViewer();
                 document.querySelector("#json-header").appendChild(jsonViewerHeader.getContainer());               
-                jsonViewerHeader.showJSON(header, -1, -1);
+                //jsonViewerHeader.showJSON((JSON.parse(JSON.stringify(header))), -1, -1);
+        		jsonViewerHeader.showJSON(header, -1, -1);
                 
                 let jsonViewerBody = new JSONViewer();
-                   document.querySelector("#json-body").appendChild(jsonViewerBody.getContainer());               
+                document.querySelector("#json-body").appendChild(jsonViewerBody.getContainer());               
+                //jsonViewerBody.showJSON(JSON.stringify(body), -1, -1);
                 jsonViewerBody.showJSON(body, -1, -1);
                 
+                
+                //https://www.npmjs.com/package/jquery.json-viewer/v/1.5.0
+                $('#json-renderer').jsonViewer(body);                
         });                
 function getJeton(){
  return $("#token").val();

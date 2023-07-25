@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Webapp client DAM</title>
+<script src="script/jquery-3.5.1.min.js"></script>
+<!-- <script src="script/jose/jose.js"></script>-->
+<script src="script/json-viewer.js"></script>
+<link rel="stylesheet" href="style/json-viewer.css" type="text/css">
+<script src="script/jquery.json-viewer.js"></script>
+  <link href="style/jquery.json-viewer.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<div body-wrapper>
+		<h1>Page POST échange de token</h1>
+		<div class="objectif">
+			<p>Page de test</p>
+		</div>
+		
+		<h2>AFFICHAGE du jeton décodé avec Javascript</h2>
+		<h3>https://www.cssscript.com/minimal-json-data-formatter-jsonviewer/#google_vignette</h3>
+			<div id="json"></div>
+			<script>
+			var str = '{"exp":1689243353,"iat":1689240353,"jti":"9009ffad-4b38-4089-ae99-a6d4ba2db802","iss":"https://keycloak.pocs.henix.asipsante.fr:8443/realms/token-exch-realm","aud":["api-a","psc-to-api"],"sub":"59e19eb5-c51a-4582-a9dc-1be3ed7d15f2","typ":"Bearer","azp":"psc-to-api","session_state":"779cbac3-4e2a-4921-91cd-0e018f112ed9","acr":"1","allowed-origins":["/*"],"realm_access":{"roles":["offline_access","uma_authorization","default-roles-oauth2-demo-realm"]},"resource_access":{"account":{"roles":["manage-account","manage-account-links","view-profile"]}},"scope":"profile paul-service email","sid":"779cbac3-4e2a-4921-91cd-0e018f112ed9","email_verified":false,"name":"Benjamin Bonche","preferred_username":"ans20210810104652","given_name":"Benjamin","family_name":"Bonche"}';
+			var jsonViewer = new JSONViewer();
+			document.querySelector("#json").appendChild(jsonViewer.getContainer());
+			jsonViewer.showJSON(JSON.parse(str), -1, -1);
+			</script>
+</body>
+</html>
