@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.javatuples.Triplet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,21 +22,42 @@ public class ProsanteConnected {
 
 	@GetMapping("/psc")
 	public String getApiToken(Model model, HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
-		System.out.println("Demande de page d'accueil d'un utilisateur connecté");		
+		System.out.println("Demande de page d'accueil d'un utilisateur connecté");
 		
-		Enumeration<String> headers = request.getAttributeNames();
-		String autho = request.getHeader("Authorization");
+		/*
+		 * LEcture des headers ...
+		 */
+		System.out.println("lecture des headers.. /psc ");
+		MultiValueMap<String, String> map = Helper.logRequestHeaders(request);
+		model.addAttribute("mapHeaders",map);
+//		Enumeration<String> headers = request.getAttributeNames();
+//		String autho = request.getHeader("Authorization");
 		
-		String reponseExchangeToken ="{\"access_token\":\"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjenFqa29SRkdfNktnNVlqdHVuWkRSem9BVTJreWYybkkwbzVrM3NYN0NrIn0.eyJleHAiOjE2ODkyNDMzNTMsImlhdCI6MTY4OTI0MDM1MywianRpIjoiOTAwOWZmYWQtNGIzOC00MDg5LWFlOTktYTZkNGJhMmRiODAyIiwiaXNzIjoiaHR0cHM6Ly9rZXljbG9hay5wb2NzLmhlbml4LmFzaXBzYW50ZS5mcjo4NDQzL3JlYWxtcy90b2tlbi1leGNoLXJlYWxtIiwiYXVkIjpbImFwaS1hIiwicHNjLXRvLWFwaSJdLCJzdWIiOiI1OWUxOWViNS1jNTFhLTQ1ODItYTlkYy0xYmUzZWQ3ZDE1ZjIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJwc2MtdG8tYXBpIiwic2Vzc2lvbl9zdGF0ZSI6Ijc3OWNiYWMzLTRlMmEtNDkyMS05MWNkLTBlMDE4ZjExMmVkOSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLW9hdXRoMi1kZW1vLXJlYWxtIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIHBhdWwtc2VydmljZSBlbWFpbCIsInNpZCI6Ijc3OWNiYWMzLTRlMmEtNDkyMS05MWNkLTBlMDE4ZjExMmVkOSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IkJlbmphbWluIEJvbmNoZSIsInByZWZlcnJlZF91c2VybmFtZSI6ImFuczIwMjEwODEwMTA0NjUyIiwiZ2l2ZW5fbmFtZSI6IkJlbmphbWluIiwiZmFtaWx5X25hbWUiOiJCb25jaGUifQ.uN2nnuB1ebbw1OXCnBPafU-06LygdyrjoQsDVP4KUVGRHE45SSaamUyiqKJ4WOz-bF87IQAicVJon5h3ZabzItzS7V2ozYNFcDgIApu2sBfWZOSnw8tcip4-UstuP6UEMI3Re9xhR3HeEmPuGCrRP3RTiPNPEvo3HiQCW39dntlqjzIxyMnFQSM5ieQTzmRxCIfNRj43Y5nLZ7YZGmBiKD2ORrNSPdSWvzKMZFtuEkjHs75DhPa85o_H8BWG7uEmszaDMDwf9F6Xr-09m-Qy2KyfU-Pz1N7qHUdjmla3cZbKEx4OifoFyrmo4FkonsRCztTUDd54QySNLtRNIEbfyQ\",\"expires_in\":3000,\"refresh_expires_in\":0,\"token_type\":\"Bearer\",\"not-before-policy\":0,\"session_state\":\"779cbac3-4e2a-4921-91cd-0e018f112ed9\",\"scope\":\"profile paul-service email\"}";		
-		model.addAttribute("headersName", headers);
-		Triplet<String, String, String> tmp = Helper.splitAndDecodeTokenFromResponse(reponseExchangeToken);	
+		/*
+		 * REcup du token et de ses caratcéristiques ...
+		 */
+
+		Boolean bExisteToken = map.containsKey("oidc_access_token");
+		if (bExisteToken) {
+	//	String token = (bExisteToken ? map.getFirst("oidc_access_token"): "NOT FOUND");
+	//		String token = map.getFirst("oidc_access_token");
+			
+		String token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJKRlRBM1llVVdQbERCTEJfeU5qWUs0bWZJcTdhYXBBS21ieVdyczRPZ0RnIn0.eyJleHAiOjE2OTA0Njk4NDgsImlhdCI6MTY5MDQ2OTcyOCwiYXV0aF90aW1lIjoxNjkwNDY5NzI4LCJqdGkiOiI2YTMyYTgxZC02MGM2LTQ3ODctYjgyOS00NzEyOGUxNjU4NjUiLCJpc3MiOiJodHRwczovL2F1dGguYmFzLnBzYy5lc2FudGUuZ291di5mci9hdXRoL3JlYWxtcy9lc2FudGUtd2FsbGV0Iiwic3ViIjoiZjo1NTBkYzFjOC1kOTdiLTRiMWUtYWM4Yy04ZWI0NDcxY2Y5ZGQ6QU5TMjAyMjA3MjAxNTI4MTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhbnMtcG9jLWVzaWduc2FudGUtYmFzIiwibm9uY2UiOiItVzRvWV9qRXdzSVRKQldBRHVJWTBjSHRYakpmaTdVdXp1b09GV2RHR0xjIiwic2Vzc2lvbl9zdGF0ZSI6IjY1Y2ZmZmY1LWY1YmQtNDcxNC04NWU3LTdmNjU4Y2VlNTdlZSIsImFjciI6ImVpZGFzMSIsInNjb3BlIjoib3BlbmlkIHNjb3BlX2FsbCBpZGVudGl0eSIsInNpZCI6IjY1Y2ZmZmY1LWY1YmQtNDcxNC04NWU3LTdmNjU4Y2VlNTdlZSIsImF1dGhNb2RlIjoiTU9CSUxFIiwib3RoZXJJZHMiOlt7ImlkZW50aWZpYW50IjoiQU5TMjAyMjA3MjAxNTI4MTMiLCJvcmlnaW5lIjoiRURJVCIsInF1YWxpdGUiOjF9XSwiU3ViamVjdE5hbWVJRCI6IkFOUzIwMjIwNzIwMTUyODEzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiQU5TMjAyMjA3MjAxNTI4MTMifQ.flK_AXHUdDp805EiyfBWENjLLHbgopqKaHUk5KQo3b8fpZ3oraB8OHe97cz585V0U3Tec3-zIvjc84P_rGrWdo-CFWAZ3eWyHzRrUwoakNs-KrIyVzAVaqQbyArVHyKm3NJMCeQ58g0AtLQpOB6HhUlbiQwzRgj9Rur50fZyhdund0Pjvz40BcGVgaAwKzgwZGsSoFX6BMTiy0WV1bfgMDJaB8C1X4Pa8fwIpKLUTWIg9E8Iqvwy5e4TqB8BwG2NNqWbwdFE92q16kKv04qZV5IkKuOiyZ37i7-12LwDcgw6Qj4szfAZ3sK-yk6iGWljI28Tfwf4sOWi8DCh8XPQTw";
+		model.addAttribute("token", token);
+		
+		model.addAttribute("expDate", Helper.convertTimeStampToLocalDateTime(map.getFirst("oidc_claim_exp")));
+		model.addAttribute("iatDate", Helper.convertTimeStampToLocalDateTime(map.getFirst("oidc_claim_iat")));
+		
+		Triplet<String, String, String> tmp = Helper.splitAndDecodeToken(token);	
 		model.addAttribute("tokenHeader", tmp.getValue0());
 		model.addAttribute("tokenBody",tmp.getValue1());
-		Token token = Helper.extractTokenObjectFromDecodedSplitedToken(tmp);
-		BodyToken bodyToken= token.getBody();
-		model.addAttribute("expDate",Helper.convertTimeStampToLocalDateTime(bodyToken.getExpirationDate()));
-		model.addAttribute("iatDate",Helper.convertTimeStampToLocalDateTime(bodyToken.getIssuedAt()));
-//		Timestamp exp = 
+		}
+//		else {
+//			model.addAttribute("expDate", "NOT FOUND");
+//			model.addAttribute("iatDate","NOT FOUND" );
+//			model.addAttribute("tokenHeader", "[]");
+//			model.addAttribute("tokenBody","[]");
+//		}
 		return "psc-connected";
 	}
 }

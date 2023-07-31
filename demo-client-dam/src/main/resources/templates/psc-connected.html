@@ -1,23 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Webapp client DAM</title>
-     <script type="text/javascript" src="/script/jquery-3.5.1.min.js"></script>
-     <script type="text/javascript" src="/script/app.js"></script>
-     
+<meta charset="UTF-8">
+<title>Webapp client DAM</title>
+<script type="text/javascript" src="/psc/script/jquery-3.5.1.min.js"></script>
+<script src="/psc/script/json-viewer.js"></script>
+<link rel="stylesheet" href="/psc/style/json-viewer.css" type="text/css">
+<script src="/psc/script/app.js"></script>
+</head>
 <body>
-<div body-wrapper>
-<h1> PAGE d'accueil Utilisateur connecté avec PSC</h1>
-<div class="objectif">
-<p>Application métier de démonstration .... </p>
-</div>
-<div class="container">
-            <h3> Vous êtes connecté avec un jeton PSC</h3>
-            <p>Cliquer sur le bouton pour faire l'échange de jeton (PSC en jeton d'API)</p>
-            <button class="exchange_button" onclick="window.location.href='/exchange'">Echange de jeton</button>
-        </div>
-</div>
 
+	<h1>PAGE d'accueil Utilisateur connecté avec PSC</h1>
+	<p>Application métier de démonstration ....</p>
+
+	<h3>Vous êtes connecté avec un jeton PSC</h3>
+	<p>Cliquer sur le bouton pour faire l'échange de jeton (PSC en
+		jeton d'API)</p>
+	<button class="exchange_button"
+		onclick="window.location.href='/exchange'">Echange de jeton</button>
+	<hr />
+	<div class=display-headers>
+		<h3>Affichage des headers</h3>
+		<tr th:each="row : mapHeaders">
+			<table>
+				<tr th:each="element : ${mapHeaders}">
+					<td th:text="${element.key}"></td>
+					<td th:text="${element.value}"></td>
+			</table>
+	</div>
+	<hr />
+	<h3>Caractéristiques du jeton</h3>
+	<div class=display-token th:if="${token != null}">
+		<div class="token-header">
+			<h4>HEADER</h4>
+			<p>
+				<span th:text="${tokenHeader}" />
+			</p>
+		</div>
+		<div class="token-body">
+			<h4>BODY</h4>
+			<p>
+				<span th:text="${tokenBody}" />
+			</p>
+		</div>
+		<div class="date-friendly">
+			<p>
+				date d'expiration: <span
+					th:text="${#temporals.format(expDate, 'dd-MM-yyyy HH:mm:ss')}" />
+			</p>
+			<p>
+				date d'émission: <span
+					th:text="${#temporals.format(iatDate, 'dd-MM-yyyy HH:mm:ss')}" />
+			</p>
+		</div>
+
+		<input type="hidden" id="token" th:value="${token}" />
+		<h2>AFFICHAGE du jeton décodé avec Javascript</h2>
+		<h3>https://www.cssscript.com/minimal-json-data-formatter-jsonviewer/#google_vignette</h3>
+		<div class="parsed-jwt-display">
+			<div class="header" id="json-header"></div>
+			<div class="header" id="json-body"></div>
+		</div>
+	</div>
 </body>
 </html>
