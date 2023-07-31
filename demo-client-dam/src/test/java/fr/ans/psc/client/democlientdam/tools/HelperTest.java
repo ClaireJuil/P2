@@ -1,19 +1,12 @@
 package fr.ans.psc.client.democlientdam.tools;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import fr.ans.psc.client.democlientdam.model.BodyToken;
-import fr.ans.psc.client.democlientdam.model.Token;
 
 public class HelperTest {
 
@@ -35,5 +28,19 @@ public class HelperTest {
 		
 		LocalDateTime date = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Paris"));
 		System.out.println(date);
+	}
+	
+
+//	@Test
+	public void todeleteAussi() throws JSONException {
+		
+//	String jsonTxt= "{\"exp\":1689243353,\"iat\":1689240353,\"jti\":\"9009ffad-4b38-4089-ae99-a6d4ba2db802\",\"iss\":\"https://keycloak.pocs.henix.asipsante.fr:8443/realms/token-exch-realm\",\"aud\":[\"api-a\",\"psc-to-api\"],\"sub\":\"59e19eb5-c51a-4582-a9dc-1be3ed7d15f2\",\"typ\":\"Bearer\",\"azp\":\"psc-to-api\",\"session_state\":\"779cbac3-4e2a-4921-91cd-0e018f112ed9\",\"acr\":\"1\",\"allowed-origins\":[\"/*\"],\"realm_access\":{\"roles\":[\"offline_access\",\"uma_authorization\",\"default-roles-oauth2-demo-realm\"]},\"resource_access\":{\"account\":{\"roles\":[\"manage-account\",\"manage-account-links\",\"view-profile\"]}},\"scope\":\"profile paul-service email\",\"sid\":\"779cbac3-4e2a-4921-91cd-0e018f112ed9\",\"email_verified\":false,\"name\":\"Benjamin Bonche\",\"preferred_username\":\"ans20210810104652\",\"given_name\":\"Benjamin\",\"family_name\":\"Bonche\"}\r\n"
+//			+ "		}";
+//	  JSONObject jsonObj = new JSONObject(jsonTxt);
+//      String exp = jsonObj.getString("exp");
+//      String iat = jsonObj.getString("iat");
+//	//JSONObject jsonObject = (JSONObject) JSONValue.parse(jsonTxt);    
+//      System.out.println(exp);
+//      System.out.println(iat);
 	}
 }

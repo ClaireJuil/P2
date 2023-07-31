@@ -7,7 +7,6 @@ import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,13 +18,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.ValidationMessage;
 
 import fr.ans.psc.client.democlientdam.model.BodyToken;
 import fr.ans.psc.client.democlientdam.model.HeaderToken;
 import fr.ans.psc.client.democlientdam.model.Token;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 
 @Slf4j
 public class Helper {
@@ -149,4 +147,14 @@ public class Helper {
 		System.out.println("...fin de lecture des headers");
 		return map;
 	}
+	
+	/*
+	 * EXtrait la valeur d'un champ IN d'un json
+	 */
+	public static String valueOfIntFieldLocalDateTime (String fieldName, String json) {
+		 JSONObject jsonObj = new JSONObject(json);
+	      return Integer.toString(jsonObj.getInt(fieldName));
+	      }
+	
+
 }

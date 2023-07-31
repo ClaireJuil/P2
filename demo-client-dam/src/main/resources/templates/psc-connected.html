@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Webapp client DAM</title>
-<script type="text/javascript" src="/psc/script/jquery-3.5.1.min.js"></script>
-<script src="/psc/script/json-viewer.js"></script>
-<link rel="stylesheet" href="/psc/style/json-viewer.css" type="text/css">
-<script src="/psc/script/app.js"></script>
+<script type="text/javascript" src="./script/jquery-3.5.1.min.js"></script>
+<script src="./script/json-viewer.js"></script>
+<link rel="stylesheet" href="./style/json-viewer.css" type="text/css">
+<script src="./script/jsonviewer-token.js"></script>
+<link rel="stylesheet" href="./style/cadres.css" type="text/css">
 </head>
 <body>
-
+    <div id=contenu>
 	<h1>PAGE d'accueil Utilisateur connecté avec PSC</h1>
 	<p>Application métier de démonstration ....</p>
 
@@ -17,7 +18,7 @@
 	<p>Cliquer sur le bouton pour faire l'échange de jeton (PSC en
 		jeton d'API)</p>
 	<button class="exchange_button"
-		onclick="window.location.href='/exchange'">Echange de jeton</button>
+		onclick="window.location.href='./exchange'">Echange de jeton</button>
 	<hr />
 	<div class=display-headers>
 		<h3>Affichage des headers</h3>
@@ -28,9 +29,17 @@
 					<td th:text="${element.value}"></td>
 			</table>
 	</div>
+	</div>
 	<hr />
+	
+	<div id =cd_token class=display-token th:if="${token != null}">
 	<h3>Caractéristiques du jeton</h3>
-	<div class=display-token th:if="${token != null}">
+		<div class="token-brut">
+			<h4>TOKEN</h4>
+			<p>
+				<span th:text="${token}" />
+			</p>
+		</div>
 		<div class="token-header">
 			<h4>HEADER</h4>
 			<p>
