@@ -27,7 +27,8 @@ public class ProsanteConnected {
 		 */
 		System.out.println("lecture des headers.. /psc ");
 		MultiValueMap<String, String> map = Helper.logRequestHeaders(request);
-		model.addAttribute("mapHeaders",map);
+		MultiValueMap<String, String> filetredMap = Helper.filtredMap(map);
+		model.addAttribute("mapHeaders",filetredMap);
 
 		/*
 		 * REcup du token et de ses caratcéristiques ...
@@ -41,6 +42,8 @@ public class ProsanteConnected {
 		
 		model.addAttribute("expDate", Helper.convertTimeStampToLocalDateTime(map.getFirst("oidc_claim_exp")));
 		model.addAttribute("iatDate", Helper.convertTimeStampToLocalDateTime(map.getFirst("oidc_claim_iat")));
+		model.addAttribute("rawExpDate", map.getFirst("oidc_claim_exp"));
+		model.addAttribute("rawIatDate", map.getFirst("oidc_claim_iat"));
 		
 		Triplet<String, String, String> tmp = Helper.splitAndDecodeToken(token);	
 		model.addAttribute("tokenHeader", tmp.getValue0());

@@ -7,6 +7,10 @@ import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -156,5 +160,18 @@ public class Helper {
 	      return Integer.toString(jsonObj.getInt(fieldName));
 	      }
 	
-
+  public static MultiValueMap<String, String> filtredMap (MultiValueMap<String,String> map) {
+	  MultiValueMap<String, String> filteredMap = new LinkedMultiValueMap<String, String>();
+	  
+	  for (Entry<String, List<String>> data : map.entrySet()) {
+	      if(data.getKey().startsWith("oidc_claim") 
+	    		  || data.getKey().startsWith("x-") 
+	    		  || data.getKey().startsWith("oidc_access")
+	    		  || data.getKey().startsWith("authorization")
+	    		  ){
+	    	  filteredMap.put(data.getKey(), data.getValue());
+	      }
+	  }
+	  return filteredMap;
+  }
 }

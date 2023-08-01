@@ -49,6 +49,8 @@ public class ExchangeToken {
 		System.out.println("exp extrait json:" + exp);
 		String iat = Helper.valueOfIntFieldLocalDateTime("iat",bodyToken);
 		System.out.println("iat extrait json:" + iat);
+		model.addAttribute("rawExpDate",exp);
+		model.addAttribute("rawIatDate", iat);		
 		model.addAttribute("expDate",Helper.convertTimeStampToLocalDateTime(exp));
 		model.addAttribute("iatDate",Helper.convertTimeStampToLocalDateTime(iat));
 		}		
