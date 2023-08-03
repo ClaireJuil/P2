@@ -8,19 +8,11 @@
     <link rel="stylesheet" type="text/css" href="./style/style.css">
     <link rel="stylesheet" href="https://use.typekit.net/jjx2ksb.css">
     <link rel="stylesheet" href="./style/style-ans.css" type="text/css">
-    <link rel="stylesheet" href="./style/print.css" type="text/css" media="print">
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-
-    <!--
-        this script has to be added to handle ProSanteConnect context sharing
-        (lodash needs to be added too if not already embedded)
-     -->
-    <script type="text/javascript" src="/script/context-sharing.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-
 </head>
 <body>
 <div class="body-wrapper">
+<!-- 
     <header class="header header-principal" role="banner">
         <div class="header-principal__inner">
             <div class="header-principal-left">
@@ -28,7 +20,7 @@
                     <div class="logo logo--0">
                         <a href="https://solidarites-sante.gouv.fr/">
 
-                            <img src="/img/logo-ministere.svg" alt="Ministère de la Santé et de la Prévention"
+                            <img src="./img/logo-ministere.svg" alt="Ministère de la Santé et de la Prévention"
                                  width="107" height="62">
 
                         </a>
@@ -36,7 +28,7 @@
                     <div class="logo logo--1">
                         <a href="/">
 
-                            <img src="/img/logo-ANS.svg" alt="Accueil Design System ANS" width="166" height="50">
+                            <img src="./img/logo-ANS.svg" alt="Accueil Design System ANS" width="166" height="50">
 
                         </a>
                     </div>
@@ -264,18 +256,17 @@
             </div>
         </div>
     </header>
-
+ -->
 <!-- ICI -->
 
     <main class="main" role="main" id="main" tabindex="-1">
         <div class="container">
-            <div>
                 <h4>Formulaire User DAMs</h4>     
                 
                 <div style="background: #FCF550; padding: 10px;">Attention l'accès est réservé aux administrateurs. Dans le cadre des POCS, vous drevez renseigner manuellement dans le formulaire suivant la clé d'API (en plus des paramètres de la requete)</div>
                 
                 <!-- <form name="myform" id="myform" action="#" th:action="@{/postEndpoint/(object)}" th:object="${object}" method="post"> -->   
-            <form id="patientForm">  
+            <form id="dams-form" th:action="'./admin/api/dams'" method="get" th:object="${object}">  
      <!--        <form name="myform" id="myform" action="#" th:action="./exchange" th:object="${object}" method="get"> --> 
      
        <!-- clé d'API -->   
@@ -287,7 +278,8 @@
                                name="pApiKey"
                                type="text" id="inputApiKey"/>
                     </div>
-                    <p class="description" id="inputApiKey-desc">clé d'API de Gravitee (frontal des services). Nécessaire pour accéder au EndPOint getUserDams (lecture des dam d'un utilisateur qui n'est pas celui authentifié par eCPS)</p>
+              <!--      <p class="description" id="inputApiKey-desc">clé d'API de Gravitee (frontal des services). Nécessaire pour accéder au EndPOint getUserDams (lecture des dam d'un utilisateur qui n'est pas celui authentifié par eCPS)</p>-->
+               <p class="description" id="inputApiKey-desc"></p>  
                 </div>                                                 
                        <!-- idNat -->                                           
                 <div class="form-group" style="max-width: 440px; display: flex; flex-direction: row">
@@ -321,7 +313,8 @@
                                name="idTechStructure"
                                type="text" id="inputIdTechStructure"/>
                     </div>
-                    <p class="description" id="inputIdTechStructure-desc">Identifiant Technique de la structure (identifiant RASS, présant dans le UserInfo PSC)</p>
+                    <!--  <p class="description" id="inputIdTechStructure-desc">Identifiant Technique de la structure (identifiant RASS, présant dans le UserInfo PSC)</p>-->
+                     <p class="description" id="inputIdTechStructure-desc"></p>
                 </div>
                 
                   <!-- modeExercice -->
@@ -332,15 +325,14 @@
                                name="idTechStructure"
                                type="text" id="inputModeExercice"/>
                     </div>
-                    <p class="description" id="inputModeExercice-desc">Libéral ou salarié</p>
+                    <!-- <p class="description" id="inputModeExercice-desc">Libéral ou salarié</p> -->
+                    <p class="description" id="inputModeExercice-desc"></p>
                 </div>
-
-                <div style="display: flex; flex-direction: row; padding: 5px">   
-                <!-- <input type="submit"> -->             
-                    <input type="submit" class=" btn btn--plain btn--primary"
-                            onclick="window.location.href='./admin/api/dams'"
-                            style="margin: 5px">    
-                              <!-- <input type="submit" class=" btn btn--plain btn--primary" style="margin: 5px"> -->                         
+               
+                <div style="display: flex; flex-direction: row; padding: 5px">               
+                    <input type="submit" class=" btn btn--plain btn--primary"                          
+                            style="margin: 5px">GO!
+                    </input>
                 </div>
             </form>
         </div>

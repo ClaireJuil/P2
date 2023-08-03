@@ -28,8 +28,9 @@ public class ExchangeToken {
 		System.out.println("Ctrl POst Demande de page d'échange de token par Apache");		
 		//header
 		System.out.println("lecture des headers.. ");
-		MultiValueMap map = Helper.logRequestHeaders(request);
-		model.addAttribute("mapHeaders",map);
+		MultiValueMap<String,String> map = Helper.logRequestHeaders(request);
+		MultiValueMap<String, String> filetredMap = Helper.filtredMap(map);
+		model.addAttribute("mapHeaders",filetredMap);
 		//TODO recup du token d'API et affichage
 		
 		//todo demande et echnage de token PSC
